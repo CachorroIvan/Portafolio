@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/layout.astro';
+import Technologies from '../components/Technologies.astro'
+
+import TitlePage from "../components/TitlePage.astro";
+import CardServices from "../components/CardService.astro";
+const services = [
+    {
+        titulo: "Web Development",
+        desc: "I'm very familiar with HTML, CSS, and JavaScript, and I've taken courses on frameworks like Vue, React, Astro, and .NET Core. This page was built with Astro, and I have some projects using Vue."
+    },
+    {
+        titulo: "Desktop applications",
+        desc: "I have experience working on desktop applications in environments like Visual Studio Community, with languages like C#, in other environments like PyQT with Python, and every day I continue to learn new things."
+    },
+    {
+        titulo: "Consultation",
+        desc: `Have an idea but not sure where to start? I offer consultation to help you navigate your challenges.
+        <br><br>
+        <strong class="text-white">My services include:</strong>
+        <ul class="list-disc pl-5 mt-2 space-y-1 text-left">
+            <li><strong class="text-pink-300">Technology Advising:</strong> Choosing the right tools (like Astro, Vue, or .NET).</li>
+            <li><strong class="text-pink-300">Code Reviews:</strong> Providing a fresh set of eyes on your existing code.</li>
+            <li><strong class="text-pink-300">Problem-Solving:</strong> Working together to brainstorm solutions for complex logic.</li>
+        </ul>`
+    },
+]
+---
+
+<Layout title="Servicios">
+
+  <section class="pt-20 px-8">
+    <div class="max-w-6xl mx-auto">
+      <TitlePage title="Services" subtitle="What I Offer" />
+      <div class="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-20">
+        {services.map((service) => (
+          <CardServices title={service.titulo} desc={service.desc} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <Technologies />
+
+</Layout>

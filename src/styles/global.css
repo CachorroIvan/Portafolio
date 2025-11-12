@@ -1,0 +1,20 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: linear-gradient(135deg, #242c53 0%, #764ba2 100%);
+    background-attachment: fixed; 
+}
+
+
+.glass-card {
+    @apply bg-white/20 backdrop-blur-lg border border-white/30;
+    @apply rounded-lg shadow-lg;
+    @apply transition-all duration-300;
+}
+
+.glass-card:hover {
+    @apply hover:shadow-2xl;
+}

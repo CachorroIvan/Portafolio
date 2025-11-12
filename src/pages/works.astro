@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/layout.astro'; 
+import TitlePage from "../components/TitlePage.astro";
+import CardWorks from "../components/CardWorks.astro";
+import ImageModal from '../components/ImageModal.astro'; 
+
+let isModalOpen = false;
+let modalImages: { src: string; alt: string }[] = [];
+---
+
+<Layout title="Mis Trabajos">
+
+  <section class="py-20 px-8 pt-24 pb-20">
+    <div class="max-w-6xl mx-auto">
+      <TitlePage title="My Projects" subtitle="The best of my projects" />
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-14">
+        
+        <CardWorks 
+          title="Task Manager App" 
+          desc="A task management application built with Vue.js, using Bootstrap for a responsive and fast design." 
+          image="/images/works/Task/task.png" // Imagen principal
+          gallery={[ 
+            { src: '/images/works/Task/task.png', alt: 'Tareas' },
+            { src: '/images/works/Task/complete.png', alt: 'Tareas completadas' },
+            { src: '/images/works/Task/To-Do.png', alt: 'Tareas sin hacer' },
+          ]}
+          githubUrl="https://github.com/CachorroIvan/task-organizer.git"
+        >
+          <div slot="tech-icons" class="flex space-x-3">
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/vue.png" alt="Vue.js" class="w-8 h-8" title="Vue.js" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/css3.png" alt="CSS" class="w-8 h-8" title="CSS" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/bootstrap.png" alt="Bootstrap" class="w-8 h-8" title="Bootstrap" /> 
+            </span>
+          </div>
+        </CardWorks>
+        
+        <CardWorks 
+          title="Crypto Price Tracker" 
+          desc="A project that consumes an external API to display cryptocurrency prices, styled with SASS and built on Vue.js and pure JavaScript."
+          image="/images/works/Cripto/cripto.png" // Imagen principal
+          gallery={[
+            { src: '/images/works/Cripto/cripto.png', alt: 'MXM Etherium' },
+            { src: '/images/works/Cripto/bitcoin.png', alt: 'MXM a Bitcoin' },
+            { src: '/images/works/Cripto/litecoin.png', alt: 'MXM a litecoin' },
+            { src: '/images/works/Cripto/dollar.png', alt: 'US a bitcoin' },
+          ]}
+          githubUrl="https://github.com/CachorroIvan/cripto-managment.git"
+          demoUrl="https://frabjous-dieffenbachia-bc4288.netlify.app"
+        >
+          <div slot="tech-icons" class="flex space-x-3">
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/vue.png" alt="Vue.js" class="w-8 h-8" title="Vue.js" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/api.png" alt="API" class="w-8 h-8" title="API" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/sass.png" alt="SASS" class="w-8 h-8" title="SASS" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/css3.png" alt="CSS" class="w-8 h-8" title="CSS" /> 
+            </span>
+            <span class="transform hover:scale-125 transition-transform duration-200 ease-in-out">
+              <img src="/images/icons/js.png" alt="JavaScript" class="w-8 h-8" title="JavaScript" /> 
+            </span>
+          </div>
+        </CardWorks>
+   
+      </div>
+    </div>
+  </section>
+
+  <ImageModal images={[]} />
+
+</Layout>
+
+<script>
+    const modalElement = document.querySelector('.image-modal-component') as HTMLElement | null;
+
+    document.addEventListener('open-modal', (event: any) => {
+        if (modalElement && event.detail && event.detail.gallery) {
+            (modalElement as any).dataset.isopen = "true";
+            (modalElement as any).dataset.images = JSON.stringify(event.detail.gallery);
+        }
+    });
+
+    if (modalElement) {
+        modalElement.addEventListener('click', (e: Event) => {
+            const target = e.target as HTMLElement | null;
+            if (target && (target === modalElement || target.closest('button.absolute'))) {
+                (modalElement as any).dataset.isopen = "false";
+                (modalElement as any).dataset.images = "[]";
+            }
+        });
+    }
+</script>

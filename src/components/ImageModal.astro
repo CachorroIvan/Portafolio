@@ -1,0 +1,140 @@
+<div 
+    class:list={[
+        "fixed inset-0 z-50 flex items-center justify-center",
+        "bg-black bg-opacity-75 backdrop-blur-sm",
+        "hidden image-modal-component"
+    ]}
+    data-isopen="false"
+>
+    <div 
+        class="relative w-11/12 max-w-4xl max-h-[90vh] bg-gray-900 rounded-lg shadow-xl overflow-hidden"
+        data-modal-content
+    >
+     
+   <button 
+            class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-400 z-30 close-modal"
+            aria-label="Cerrar modal"
+        >&times;</button>
+
+        <div class="relative w-full h-full flex items-center justify-center p-4">
+            
+            <img 
+                id="modal-image" 
+                src="" 
+                alt="" 
+                class="max-w-full max-h-[80vh] object-contain rounded-md"
+            />
+
+            <button 
+                id="modal-prev" 
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white text-3xl p-4 rounded-full z-20"
+            >&#10094;</button>
+            
+            <button 
+                id="modal-next" 
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white text-3xl p-4 rounded-full z-20"
+            >&#10095;</button>
+
+            <div id="modal-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white text-sm px-3 py-1 rounded-full z-20">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script is:inline>
+    const modalElement = document.querySelector('.image-modal-component');
+    const closeButton = document.querySelector('.close-modal');
+    
+    const modalImage = document.getElementById('modal-image');
+    const prevButton = document.getElementById('modal-prev');
+    const nextButton = document.getElementById('modal-next');
+    const counterElement = document.getElementById('modal-counter');
+
+    let currentGallery = [];
+    let currentIndex = 0;
+
+
+
+    function showModal() {
+        if (modalElement) {
+            modalElement.classList.remove('hidden');
+            modalElement.classList.add('flex');
+        }
+    }
+
+    function hideModal() {
+        if (modalElement) {
+            modalElement.classList.add('hidden');
+            modalElement.classList.remove('flex');
+        }
+        currentGallery = [];
+        currentIndex = 0;
+    }
+
+
+    function showImage(index) {
+        if (!modalImage || !counterElement || currentGallery.length === 0) return;
+
+
+        modalImage.src = currentGallery[index].src;
+        modalImage.alt = currentGallery[index].alt;
+
+        counterElement.textContent = `${index + 1} / ${currentGallery.length}`;
+
+        prevButton.style.display = (index === 0) ? 'none' : 'block';
+        nextButton.style.display = (index === currentGallery.length - 1) ? 'none' : 'block';
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', hideModal);
+    }
+    if (modalElement) {
+        modalElement.addEventListener('click', (event) => {
+            if (event.target === modalElement) {
+                hideModal();
+            }
+        });
+    }
+
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showImage(currentIndex);
+            }
+        });
+    }
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < currentGallery.length - 1) {
+                currentIndex++;
+                showImage(currentIndex);
+            }
+        });
+    }
+
+    document.addEventListener('open-modal', (event) => {
+        const gallery = event.detail.gallery;
+        
+        if (gallery && gallery.length > 0) {
+            currentGallery = gallery;
+            currentIndex = 0;
+        
+            showImage(currentIndex);
+            
+            showModal();
+        } else {
+            console.error('Se intentó abrir el modal sin una galería.');
+        }
+    });
+</script>
+
+<style is:global>
+    #modal-prev, #modal-next {
+        transition: opacity 0.2s;
+    }
+    #modal-prev:hover, #modal-next:hover {
+        opacity: 0.8;
+    }
+</style>

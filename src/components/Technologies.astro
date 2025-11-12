@@ -1,0 +1,114 @@
+---
+import TitlePage from "./TitlePage.astro";
+const techCategories = [
+  {
+    title: "JavaScript Ecosystem",
+    icons: [
+      { name: "JavaScript", src: "/images/icons/js.png" },
+      { name: "Vue.js", src: "/images/icons/vue.png" },
+      { name: "React", src: "/images/icons/react.png" },
+      { name: "Astro", src: "/images/icons/astro.png" },
+    ]
+  },
+  {
+    title: "HTML & CSS",
+    icons: [
+      { name: "HTML5", src: "/images/icons/html.png" },
+      { name: "CSS3", src: "/images/icons/css3.png" },
+      { name: "Bootstrap", src: "/images/icons/bootstrap.png" },
+      { name: "Tailwind", src: "/images/icons/tailwind.png" },
+      { name: "SASS", src: "/images/icons/sass.png" },
+    ]
+  },
+  {
+    title: "Desktop & Backend",
+    icons: [
+      { name: "C#", src: "/images/icons/csharp.png" },
+      { name: ".NET Core", src: "/images/icons/dotnet.png" },
+      { name: "Python", src: "/images/icons/python.png" },
+      { name: "C++", src: "/images/icons/cpp.png" },
+    ]
+  },
+  {
+    title: "Tools & Database",
+    icons: [
+      { name: "Git", src: "/images/icons/git.png" },
+      { name: "GitHub", src: "/images/icons/github.png" },
+      { name: "SQL Server", src: "/images/icons/sql.png" },
+      { name: "VS Code", src: "/images/icons/vscode.png" },
+    ]
+  }
+];
+
+const learningGoals = [
+  { name: "AWS", src: "/images/icons/aws.png" },
+  { name: "Docker", src: "/images/icons/docker.png" },
+  { name: "Flutter", src: "/images/icons/flutter.png" },
+  { name: "Android Studio", src: "/images/icons/android.png" },
+  { name: "Azure", src: "/images/icons/azure.png" },
+  { name: "Flask", src: "/images/icons/flask.png" },
+  { name: "Kotlin", src: "/images/icons/kotlin.png" },
+  { name: "Angular", src: "/images/icons/angular.png" },
+  
+];
+---
+
+<section class="py-10 px-8">
+  <div class="max-w-6xl mx-auto">
+    
+    <div class="mb-10">
+      <TitlePage title="Technologies" subtitle="The tools I work with" />
+    </div>
+
+    <div class="relative group">
+      <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+      <div class="relative p-8 rounded-2xl bg-slate-900/50 backdrop-blur-xl border border-white/10 ring-1 ring-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10"> 
+          {techCategories.map((category) => (
+            <div class="px-4 py-4 flex flex-col items-center text-center group/col hover:bg-white/5 transition-colors rounded-lg">
+              <h3 class="font-bold mb-6 uppercase tracking-wider text-lg bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-purple-300 group-hover/col:from-white group-hover/col:to-white transition-all">
+                {category.title}
+              </h3>
+              <div class="flex flex-wrap justify-center gap-5">
+                {category.icons.map((icon) => (
+                  <div class="flex flex-col items-center group/icon relative">
+                    <img 
+                      src={icon.src} 
+                      alt={icon.name} 
+                      class="w-11 h-11 object-contain transform hover:scale-125 transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" 
+                    />
+                    <span class="absolute -bottom-8 opacity-0 group-hover/icon:opacity-100 transition-opacity text-xs text-white bg-black/80 px-2 py-1 rounded border border-white/10 pointer-events-none z-50">
+                      {icon.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 relative">
+        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+        <div class="relative flex flex-col md:flex-row items-center justify-between p-6 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
+        
+            <div class="mb-6 md:mb-0 md:mr-8 text-center md:text-left">
+                <h3 class="text-xl font-bold text-blue-300">What I'm Learning Next 🚀</h3>
+                <p class="text-white/60 text-sm">Expanding my horizons with new tech.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-8">
+                {learningGoals?.map((goal) => (
+                <div class="flex flex-col items-center group cursor-help" title={`Learning ${goal.name}`}>
+                    <div class="w-12 h-12 p-2 rounded-full bg-black/20 border border-white/10 flex items-center justify-center transition-all group-hover:border-blue-400/50 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                    <img src={goal.src} alt={goal.name} class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                </div>
+                ))}
+            </div>
+        </div>
+    </div>
+
+  </div>
+</section>
